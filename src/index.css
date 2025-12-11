@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* macOS-inspired dark theme */
+    --background: 215 50% 10%;
+    --background-gradient-start: 215 50% 8%;
+    --background-gradient-end: 215 40% 18%;
+    
+    --foreground: 210 40% 98%;
+    --foreground-muted: 215 20% 65%;
+
+    --card: 215 40% 15%;
+    --card-foreground: 210 40% 98%;
+    --card-hover: 215 35% 20%;
+
+    --popover: 215 45% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 200 100% 60%;
+    --primary-foreground: 215 50% 10%;
+    --primary-glow: 200 100% 70%;
+
+    --secondary: 215 30% 25%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 215 30% 20%;
+    --muted-foreground: 215 20% 60%;
+
+    --accent: 200 80% 55%;
+    --accent-foreground: 215 50% 10%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 30% 25%;
+    --input: 215 30% 20%;
+    --ring: 200 100% 60%;
+
+    --radius: 0.75rem;
+
+    /* Folder colors */
+    --folder-blue: 210 90% 60%;
+    --folder-blue-light: 210 80% 75%;
+    --folder-shadow: 215 50% 5%;
+
+    /* Dock */
+    --dock-bg: 215 30% 15%;
+    --dock-border: 215 25% 30%;
+
+    /* Window */
+    --window-bg: 215 35% 18%;
+    --window-header: 215 40% 22%;
+    --window-border: 215 25% 30%;
+
+    /* Sidebar variables */
+    --sidebar-background: 215 45% 12%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 200 100% 60%;
+    --sidebar-primary-foreground: 215 50% 10%;
+    --sidebar-accent: 215 30% 20%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 215 30% 25%;
+    --sidebar-ring: 200 100% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
+
+@layer utilities {
+  /* Desktop gradient background */
+  .desktop-gradient {
+    background: linear-gradient(
+      145deg,
+      hsl(var(--background-gradient-start)) 0%,
+      hsl(var(--background-gradient-end)) 50%,
+      hsl(215 45% 22%) 100%
+    );
+  }
+
+  /* Folder icon styling */
+  .folder-icon {
+    filter: drop-shadow(0 4px 8px hsl(var(--folder-shadow) / 0.5));
+    transition: all 0.2s ease;
+  }
+
+  .folder-icon:hover {
+    filter: drop-shadow(0 8px 16px hsl(var(--folder-shadow) / 0.7));
+    transform: scale(1.05);
+  }
+
+  /* Glass effect for dock */
+  .glass-effect {
+    background: hsl(var(--dock-bg) / 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--dock-border) / 0.3);
+  }
+
+  /* Window glass effect */
+  .window-glass {
+    background: hsl(var(--window-bg) / 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid hsl(var(--window-border) / 0.5);
+    box-shadow: 
+      0 25px 50px -12px hsl(var(--folder-shadow) / 0.5),
+      0 0 0 1px hsl(var(--window-border) / 0.2);
+  }
+
+  /* Typography for hero */
+  .hero-script {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-bold {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+  }
+
+  /* Dock icon hover effect */
+  .dock-icon {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .dock-icon:hover {
+    transform: translateY(-12px) scale(1.15);
+  }
+
+  /* Glow effect */
+  .glow-primary {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+
+  /* Animation for folder open */
+  @keyframes folder-bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+  }
+
+  .folder-click {
+    animation: folder-bounce 0.15s ease;
+  }
+
+  /* Fade in animation */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease forwards;
+  }
+
+  /* Stagger children animations */
+  .stagger-children > * {
+    opacity: 0;
+    animation: fade-in-up 0.4s ease forwards;
+  }
+
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.15s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.25s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.35s; }
+}
